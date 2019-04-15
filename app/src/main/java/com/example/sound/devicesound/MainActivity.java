@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements ToneThread.ToneCa
     }
 
     public void receiveMessage(){
+        //Log.d("wow", "wow");
 
         Thread receive = new Thread(new Runnable() {
 
@@ -98,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements ToneThread.ToneCa
 
             @Override
             public void run() {
-
                 recv_tone.PreRequest();
 
             }
@@ -109,24 +109,24 @@ public class MainActivity extends AppCompatActivity implements ToneThread.ToneCa
     }
 
     public void sendMessage(String message){
-        Log.d("Message", message);
+        //Log.d("Message", message);
         byte[] payload = new byte[0];
         payload = message.getBytes(Charset.forName("UTF-8"));
-        Log.d("PayLoad", payload.toString());
+        //Log.d("PayLoad", payload.toString());
         EncoderDecoder encoder = new EncoderDecoder();
         final byte[] fec_payload;
-        Log.d("ENCODING", encoder.toString());
+        //Log.d("ENCODING", encoder.toString());
         try {
             fec_payload = encoder.encodeData(payload, FEC_BYTES);
         } catch (EncoderDecoder.DataTooLargeException e) {
             return;
         }
-        Log.d("FEC_PAYLOAD", fec_payload.toString());
+        //Log.d("FEC_PAYLOAD", fec_payload.toString());
         ByteArrayInputStream bis = new ByteArrayInputStream(fec_payload);
-        Log.d("BytpeArrayInputStream", bis.toString());
+        //Log.d("BytpeArrayInputStream", bis.toString());
         play_tone.setEnabled(false);
         ToneThread.ToneIterator tone = new BitstreamToneGenerator(bis, 7);
-        Log.d("TONE", tone.toString());
+        //Log.d("TONE", tone.toString());
         Thread play_tone  = new ToneThread(tone, MainActivity.this);
         play_tone.start();
         //while(true){

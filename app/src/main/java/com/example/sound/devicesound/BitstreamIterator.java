@@ -31,7 +31,7 @@ public class BitstreamIterator implements Iterable<Integer> {
                     try {
                         buffer_size = stream.read(buffer, 0, buffer.length);
                     } catch (IOException e) {
-                        Log.e("DEBUG", "IO fail", e);
+                    //    Log.e("DEBUG", "IO fail", e);
                         buffer_size = 0;
                     }
                 }
@@ -50,26 +50,26 @@ public class BitstreamIterator implements Iterable<Integer> {
                     }
 
                     int can_fill = Byte.SIZE - next_read_bit;
-                    Log.d("BIT",Integer.toString(can_fill));
-                    Log.d("Byte.SIZE",Integer.toString(Byte.SIZE));
-                    Log.d("next_read_bit",Integer.toString(next_read_bit));
-                    Log.d("BIT_LEFT",Integer.toString(bits_left));
+//                    Log.d("BIT",Integer.toString(can_fill));
+//                    Log.d("Byte.SIZE",Integer.toString(Byte.SIZE));
+//                    Log.d("next_read_bit",Integer.toString(next_read_bit));
+//                    Log.d("BIT_LEFT",Integer.toString(bits_left));
 
                     int to_fill = Math.min(can_fill, bits_left);
-                    Log.d("to_fill",Integer.toString(to_fill));
+//                    Log.d("to_fill",Integer.toString(to_fill));
                     int offset = Byte.SIZE - next_read_bit - to_fill;
-                    Log.d("offset",Integer.toString(offset));
+ //                   Log.d("offset",Integer.toString(offset));
                     out <<= to_fill;
-                    Log.d("out",Integer.toString(out));
+//                    Log.d("out",Integer.toString(out));
                     int shifted_bits =  buffer[next_read_byte] & (((1 << to_fill) - 1) << offset);
-                    Log.d("shifted_bits",Integer.toString(shifted_bits));
+//                    Log.d("shifted_bits",Integer.toString(shifted_bits));
                     out |= shifted_bits >> offset;
                     bits_left -= to_fill;
                     next_read_bit += to_fill;
-                    Log.d("bits_left",Integer.toString(bits_left));
-                    Log.d("next_read_bit",Integer.toString(next_read_bit));
-                    Log.d("next_read_byte",Integer.toString(next_read_byte));
-                    Log.d("buffer",Integer.toString((buffer[next_read_byte])));
+//                    Log.d("bits_left",Integer.toString(bits_left));
+//                    Log.d("next_read_bit",Integer.toString(next_read_bit));
+//                    Log.d("next_read_byte",Integer.toString(next_read_byte));
+//                    Log.d("buffer",Integer.toString((buffer[next_read_byte])));
 
                     if (next_read_bit >= Byte.SIZE) {
                         ++next_read_byte;
@@ -77,7 +77,7 @@ public class BitstreamIterator implements Iterable<Integer> {
                     }
                 }
 
-                Log.i("BitStream", "yield -> " + out);
+                //Log.i("BitStream", "yield -> " + out);
                 return out;
             }
 
